@@ -14,6 +14,7 @@ class AuthorizationProvider {
   }) {
     return _network.sendRequest(
       path: 'https://api.byteplex.info/api/test/contact/',
+      parseResponse: AuthorizationResponse.fromJson,
       body: <String, dynamic>{
         'name': name,
         'email': email,

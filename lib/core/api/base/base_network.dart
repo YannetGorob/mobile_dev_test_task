@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_dev_test_task/core/api/base/api_result.dart';
+import 'package:mobile_dev_test_task/core/api/base/request_method.dart';
 
 class BaseNetwork {
   BaseNetwork(this._dio);
@@ -15,6 +16,7 @@ class BaseNetwork {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic> json)? parseResponse,
     T Function(List<dynamic> json)? parseListResponse,
+    RequestMethod method = RequestMethod.post,
     Map<dynamic, dynamic>? body,
   }) async {
     if (parseResponse == null && parseListResponse == null && T != Null) {
@@ -26,6 +28,7 @@ class BaseNetwork {
         path,
         queryParameters: queryParameters,
         data: body,
+        options: Options(method: method.name),
       );
 
       final data = result.data;
@@ -34,7 +37,8 @@ class BaseNetwork {
         print(data);
       }
 
-      if (result.statusCode == HttpStatus.ok) {
+      if (result.statusCode == HttpStatus.ok ||
+          result.statusCode == HttpStatus.created) {
         if (data is Map<String, dynamic> && parseResponse != null) {
           final value = parseResponse(data);
           return ApiResult<T>.success(value);
