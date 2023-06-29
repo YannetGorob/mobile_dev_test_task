@@ -15,6 +15,7 @@ class BaseNetwork {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic> json)? parseResponse,
     T Function(List<dynamic> json)? parseListResponse,
+    Map<dynamic, dynamic>? body,
   }) async {
     if (parseResponse == null && parseListResponse == null && T != Null) {
       throw ArgumentError();
@@ -24,6 +25,7 @@ class BaseNetwork {
       final result = await _dio.request<dynamic>(
         path,
         queryParameters: queryParameters,
+        data: body,
       );
 
       final data = result.data;
