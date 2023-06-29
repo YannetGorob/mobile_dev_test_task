@@ -40,7 +40,7 @@ class FormWithIcon extends StatelessWidget {
                 child: CustomTextField(
                   validator: validator,
                   controller: controller,
-                  hintText: 'Message',
+                  hintText: hintText,
                 ),
               ),
             ],

@@ -32,7 +32,6 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
   void initState() {
     super.initState();
     _nameController = TextEditingController();
-
     _nameController.addListener(_checkFieldEmptiness);
     _emailController = TextEditingController();
     _emailController.addListener(_checkFieldEmptiness);
